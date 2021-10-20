@@ -29,10 +29,10 @@ void tri_insertion_glouton(item tab[], int tailletab)
 
 int find_glouton(item tabItems[], int nbItems, item sac[], int volSac)
 {
-    int j = 0;
+    int tailleSacRempli = 0;
     tri_insertion_glouton(tabItems,nbItems);
 
-    for (int i = 0; i < nbItems; i++)
+    for (int i = nbItems -1 ; i >= 0; i--)
     {
         if (volSac == 0)
         {
@@ -40,10 +40,10 @@ int find_glouton(item tabItems[], int nbItems, item sac[], int volSac)
         }
         if (tabItems->poids <= volSac)
         {
-            sac[j] = tabItems[i];
+            sac[tailleSacRempli] = tabItems[i];
             volSac = volSac - tabItems[i].poids;
-            j++;
+            tailleSacRempli++;
         }
     }
-    return j;
+    return tailleSacRempli;
 }

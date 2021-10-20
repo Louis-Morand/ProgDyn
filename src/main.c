@@ -42,53 +42,52 @@ void tri_bulle(int *tab, int tailletab)
 
 void init_glouton()
 {
-	int tailleTabMax = 3, poidsSacMax = 10, tailleSacRempli;
+	int tailleTabMax = 20, poidsSacMax = 30, tailleSacRempli;
 	item tab[tailleTabMax];
 	item sac[tailleTabMax];
 
-	// srand(5);
-	// for (int i = 0; i < tailleTabMax; i++)
-	// {
-	// 	tab[i].valeur = rand() %10;
-	// 	tab[i].poids = rand() %10;
-	//}
+	srand(5);
+	for (int i = 0; i < tailleTabMax; i++)
+	{
+	tab[i].valeur = rand() %10;
+	tab[i].poids = rand() %10;
+	tab[i].moyenne = tab[i].valeur/tab[i].poids;
+	}
 
-	tab[0].poids = 6;
-	tab[0].valeur = 7;
-	tab[0].moyenne = 6.5;
+	//tab[0].poids = 6;
+	//tab[0].valeur = 7;
+	//tab[0].moyenne = 6.5;
 
-	tab[1].poids = 5;
-	tab[1].valeur = 5;
-	tab[1].moyenne = 5;
+	//tab[1].poids = 5;
+	//tab[1].valeur = 5;
+	//tab[1].moyenne = 5;
 
-	tab[2].poids = 5;
-	tab[2].valeur = 5;
-	tab[2].moyenne = 5;
+	//tab[2].poids = 5;
+	//tab[2].valeur = 5;
+	//tab[2].moyenne = 5;
+
 	printf("tableau d'objets:");
 	for(int i=0;i<3;i++){
-		printf("\nTabPoids %d: %d", i, tab[i].poids);
-		printf("\nTabValeur %d: %d",i, tab[i].valeur);
-		printf("\nTabMoyenne %d: %f\n",i, tab[i].moyenne);
+		printf("\nPour %d: TabPoids: %d, TabValeur: %d, TabMoyenne: %.2f", i, tab[i].poids, tab[i].valeur, tab[i].moyenne);
 	}
 	tailleSacRempli =  find_glouton(tab, tailleTabMax, sac, poidsSacMax);
 
 	printf("\ntableau de sac:");
 	for(int i=0;i<tailleSacRempli;i++){
-		printf("\nTabPoids %d: %d", i, sac[i].poids);
-		printf("\nTabValeur %d: %d",i, sac[i].valeur);
-		printf("\nTabMoyenne %d: %f",i, sac[i].moyenne);
+		printf("\nPour %d: TabPoids: %d, TabValeur: %d, TabMoyenne: %.2f", i, sac[i].poids, sac[i].valeur, sac[i].moyenne);
 	}
 }
 
-int main()
-{
+void init_Conquer(){
+
 	int maxTab = 100, tabDivide[maxTab], res = 0;
 	srand(58);
 	for (int i = 0; i < maxTab; i++)
 	{
-		tabDivide[i] = rand() % 999;
+		tabDivide[i] = (rand() %999) + 1;
 	}
 	tri_bulle(tabDivide, maxTab);
+
 	for (int i = 0; i < maxTab; i++)
 	{
 		//printf("\nTab %d: %d", i, tabDivide[i]);
@@ -96,5 +95,11 @@ int main()
 
 	res = find_by_dichotomy(tabDivide, maxTab, 977);
 	//printf("\nposition: %d\n", res);
+
+}
+
+int main()
+{	
+	init_Conquer();
 	init_glouton();
 }
