@@ -10,6 +10,7 @@
  */
 #include <stdio.h>
 #include <stdlib.h>
+#include <CUnit.h>
 #include "./Glouton/glouton.h"
 #include "./DivideAndConquer/divide.h"
 #include "./DivideAndConquer/divide.h"
@@ -40,7 +41,7 @@ void tri_bulle(int *tab, int tailletab)
 	} while (nb_chmgt != 0);
 }
 
-void init_glouton()
+void tests_glouton()
 {
 	int tailleTabMax = 20, poidsSacMax = 30, tailleSacRempli;
 	item tab[tailleTabMax];
@@ -78,7 +79,7 @@ void init_glouton()
 	}
 }
 
-void init_Conquer(){
+void tests_Conquer(){
 
 	int maxTab = 100, tabDivide[maxTab], res = 0;
 	srand(58);
@@ -98,8 +99,31 @@ void init_Conquer(){
 
 }
 
+
+int test_init()
+{
+    return 0;
+}
+int test_cleanup()
+{
+    return 0;
+}
+
 int main()
 {	
-	init_Conquer();
-	init_glouton();
+	CU_initialize_registry();
+
+    CU_pSuite *tests = CU_add_suite("tests ProgDyn", test_init, test_cleanup);
+
+	tests_Conquer();
+	tests_glouton();
+
+    CU_add_test(tests, "test Divide and Conquer", tests_glouton);
+    CU_add_test(tests, "test Glouton", tests_Conquer);
+    CU_add_test(tests, "test A FAIRE", test_AFAIRE);
+
+    CU_basic_run_tests();
+    test_cleanup();
+
+    return (EXIT_SUCCESS);
 }
