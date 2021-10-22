@@ -107,23 +107,40 @@ void tests_Conquer()
 	//printf("\nposition: %d\n", res);
 }
 
+int find_max(int a, int b){
+	if (a > b)
+    {
+        return a;
+    }
+    else
+        return b;
+}
+
 void tests_pgcb()
 {
-	int taille_mat = 3, minimum = 100, pos;
+	int taille_mat = 4, minimum = -10, pos;
 	int mat[taille_mat][taille_mat];
 	//fill_mat(*mat, taille_mat);
 
 	mat[0][0]=1;
 	mat[0][1]=0;
 	mat[0][2]=0;
+	mat[0][3]=0;
 
-	mat[1][0]=0;
+	mat[1][0]=1;
 	mat[1][1]=0;
 	mat[1][2]=0;
+	mat[1][3]=0;
 
 	mat[2][0]=1;
-	mat[2][1]=1;
-	mat[2][2]=1;
+	mat[2][1]=0;
+	mat[2][2]=0;
+	mat[2][3]=0;
+
+	mat[3][0]=1;
+	mat[3][1]=1;
+	mat[3][2]=1;
+	mat[3][3]=1;
     aff_mat(mat, taille_mat);
 
 
@@ -131,8 +148,8 @@ void tests_pgcb()
 	{
 		for (int numLig = 0; numLig < taille_mat; numLig++)
 		{
-			pos = (numCol * taille_mat + numLig);
-			minimum = find_min(minimum, find_carre(pos, *mat, taille_mat,numCol,numLig));
+			pos = numCol * taille_mat + numLig;
+			minimum = find_max(minimum, find_carre(pos, *mat, taille_mat,numCol,numLig));
 		}
 	}
 	printf("\nCARRE MIN: %d\n", minimum);
