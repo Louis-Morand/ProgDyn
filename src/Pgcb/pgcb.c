@@ -59,16 +59,18 @@ int find_min(int a, int b)
         return b;
 }
 
-int find_carre(int pos, int *tab, int taille_mat, int numCol, int numLig)
+
+//TODO: finir inversion lignes/colonnes
+int find_carre(int pos, int *tab, int taille_mat, int numLig, int numCol)
 {
     int tMax, pos1, pos2, pos3;
-    //i*taille_mat+j
+    //numLigne*taille_mat+Colonne
     //PGCB(x-1;y-1)
-    pos1 = ((numCol - 1) * taille_mat) + (numLig - 1);
+    pos1 = ((numLig - 1) * taille_mat) + (numCol - 1);
     //PGCB(x;y-1)
-    pos2 = (numCol * taille_mat) + (numLig - 1);
+    pos2 = (numLig * taille_mat) + (numCol - 1);
     //PGCB(x-1;y)
-    pos3 = ((numCol - 1) * taille_mat) + numLig;
+    pos3 = ((numLig - 1) * taille_mat) + numCol;
 
     if (tab[pos] == 1) //pixl noir
     {
@@ -83,9 +85,9 @@ int find_carre(int pos, int *tab, int taille_mat, int numCol, int numLig)
     {
         tMax = 1 + find_min(
                        find_min(
-                           find_carre(pos1, &tab[pos1], taille_mat, numCol - 1, numLig - 1), //PGCB(x-1;y-1)
-                           find_carre(pos2, &tab[pos2], taille_mat, numCol,  numLig - 1)),    //PGCB(x;y-1
-                       find_carre(pos3, &tab[pos1], taille_mat, numCol - 1, numLig));        //PGCB(x-1;y)
+                           find_carre(pos1, &tab[pos1], taille_mat, numLig - 1, numCol - 1), //PGCB(x-1;y-1)
+                           find_carre(pos2, &tab[pos2], taille_mat, numLig,  numCol - 1)),    //PGCB(x;y-1
+                       find_carre(pos3, &tab[pos1], taille_mat, numLig - 1, numCol));        //PGCB(x-1;y)
         return tMax;
     }
 }
