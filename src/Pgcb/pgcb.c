@@ -14,7 +14,7 @@
 #include <time.h>
 #include "pgcb.h"
 
-int fill_mat(bool *mat, int taille_mat)
+int fill_mat(int *mat, int taille_mat)
 {
     srand(time(NULL));
     for (int i = 0; i < taille_mat; i++)
@@ -29,7 +29,7 @@ int fill_mat(bool *mat, int taille_mat)
     return 1;
 }
 
-void aff_mat(bool *mat, int taille_mat)
+void aff_mat(int *mat, int taille_mat)
 {
     for (int i = 0; i < taille_mat; i++)
     {
@@ -48,13 +48,6 @@ void aff_mat(bool *mat, int taille_mat)
     }
 }
 
-//REMPLACEE PAR recur
-// void recherche_carre(bool *mat, int taille_mat, bool pixel)
-// {
-
-//     bool res = 0;
-//     int max_tab = taille_mat * taille_mat;
-// }
 
 int find_min(int a, int b)
 {
@@ -66,16 +59,16 @@ int find_min(int a, int b)
         return b;
 }
 
-int find_carre(int pos, bool *tab, int taille_mat, int numCol, int numLig)
+int find_carre(int pos, int *tab, int taille_mat, int numCol, int numLig)
 {
-    int tMax = 0, pos1, pos2, pos3;
+    int tMax, pos1, pos2, pos3;
     //i*taille_mat+j
     //PGCB(x-1;y-1)
-    pos1 = numCol - 1 * taille_mat + numLig - 1;
+    pos1 = ((numCol - 1) * taille_mat) + (numLig - 1);
     //PGCB(x;y-1)
-    pos2 = numCol * taille_mat + numLig - 1;
+    pos2 = (numCol * taille_mat) + (numLig - 1);
     //PGCB(x-1;y)
-    pos3 = numCol - 1 * taille_mat + numLig;
+    pos3 = ((numCol - 1) * taille_mat) + numLig;
 
     if (tab[pos] == 1) //pixl noir
     {

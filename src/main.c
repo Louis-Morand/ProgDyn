@@ -109,20 +109,33 @@ void tests_Conquer()
 
 void tests_pgcb()
 {
-	int taille_mat = 10, minimum = INT_MAX, pos;
-	bool mat[taille_mat][taille_mat];
-	fill_mat(*mat, taille_mat);
-	//mat[i * taille_mat + j]
+	int taille_mat = 3, minimum = 100, pos;
+	int mat[taille_mat][taille_mat];
+	//fill_mat(*mat, taille_mat);
+
+	mat[0][0]=1;
+	mat[0][1]=0;
+	mat[0][2]=0;
+
+	mat[1][0]=0;
+	mat[1][1]=0;
+	mat[1][2]=0;
+
+	mat[2][0]=1;
+	mat[2][1]=1;
+	mat[2][2]=1;
+    aff_mat(mat, taille_mat);
+
+
 	for (int numCol = 0; numCol < taille_mat; numCol++)
 	{
 		for (int numLig = 0; numLig < taille_mat; numLig++)
 		{
-			pos = numCol * taille_mat + numLig;
+			pos = (numCol * taille_mat + numLig);
 			minimum = find_min(minimum, find_carre(pos, *mat, taille_mat,numCol,numLig));
 		}
 	}
 	printf("\nCARRE MIN: %d\n", minimum);
-	printf("\n\nBLBLBLBLBL\n\n");
 }
 
 int test_init()

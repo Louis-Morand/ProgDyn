@@ -12,13 +12,13 @@
 #define PGCB_H
 #include <stdbool.h>
 
-int fill_mat(bool *mat, int taille_mat);
+int fill_mat(int *mat, int taille_mat);
 
-void aff_mat(bool *tab, int tailletab);
+void aff_mat(int *tab, int tailletab);
 
 int find_min(int a, int b);
 
 
-int find_carre(int pos, bool *tab, int taille_mat, int numCol, int numLig);
+int find_carre(int pos, int *tab, int taille_mat, int numCol, int numLig);
 
 #endif
