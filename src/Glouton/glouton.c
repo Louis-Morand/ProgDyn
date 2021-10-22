@@ -36,7 +36,7 @@ int find_glouton(item tabItems[], int nbItems, item sac[], int volSac)
     {
         if (volSac == 0)
         {
-            return j;
+            return tailleSacRempli;
         }
         if (tabItems->poids <= volSac)
         {
