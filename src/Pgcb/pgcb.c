@@ -72,6 +72,7 @@ int find_carre(int pos, int *tab, int taille_mat, int numLig, int numCol)
     //PGCB(x-1;y)
     pos3 = ((numLig - 1) * taille_mat) + numCol;
 
+    //ICI SEGFAULT
     if (tab[pos] == 1) //pixl noir
     {
         return 0;
