@@ -116,10 +116,22 @@ int find_max(int a, int b){
         return b;
 }
 
+Struct *CarreRet init_struct(){
+	Struct *CarreRet = malloc(sizeof(CarreRet))
+    CarreRet.x =0;
+    CarreRet.y=0;
+    CarreRet.taille=0;
+    return CarreRet;
+}
+
 void tests_pgcb()
 {
-	int taille_mat = 3, minimum = -10, pos;
+	size_t taille_mat = 3;
+	Struct *CarreRet;
 	int mat[taille_mat][taille_mat];
+	//On cherche le carre max, et on sauvegarde sa valeur dans une stucture
+	CarreRet =  init_Carre();
+
 	//fill_mat(*mat, taille_mat);
 
 	mat[0][0]=1;
@@ -148,11 +160,10 @@ void tests_pgcb()
 	{
 		for (int numLig = 0; numLig < taille_mat; numLig++)
 		{
-			pos = numLig * taille_mat + numCol;
-			minimum = find_max(minimum, find_carre(pos, *mat, taille_mat,numLig,numCol));
+			find_carre2(*mat, taille_mat, numCol, numLig, Struct *CarreRet)
 		}
 	}
-	printf("\nCARRE MIN: %d\n", minimum);
+	printf("\nCARRE MIN: %d, x:%d, y:%d\n", CarreRet.taille, CarreRet.x, CarreRet.y);
 }
 
 int test_init()
