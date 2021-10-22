@@ -14,7 +14,11 @@
 
 int fill_mat(bool *mat, int taille_mat);
 
-void aff_pgcd(bool *tab, int tailletab);
+void aff_mat(bool *tab, int tailletab);
 
+int find_min(int a, int b);
+
+
+int find_carre(int pos, bool *tab, int taille_mat, int numCol, int numLig);
 
 #endif

@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include <CUnit/CUnit.h>
 #include <CUnit/Basic.h>
+#include <limits.h>
 #include "Pgcb/pgcb.h"
 #include "./Glouton/glouton.h"
 #include "./DivideAndConquer/divide.h"
@@ -38,6 +39,7 @@ void tri_bulle(int *tab, int tailletab)
 			if (tab[i] > tab[i + 1])
 			{
 				nb_chmgt++;
+				
 			}
 		}
 	} while (nb_chmgt != 0);
@@ -52,11 +54,11 @@ void tests_glouton()
 	srand(10);
 	for (int i = 0; i < tailleTabMax; i++)
 	{
-	tab[i].valeur = (rand()%10) +1;
-	tab[i].poids = (rand()%10)+1;
-	moyenne = tab[i].valeur / tab[i].poids;
-	tab[i].moyenne = moyenne;
-	//tab[i].moyenne = (tab[i].valeur)/(tab[i].poids);
+		tab[i].valeur = (rand() % 10) + 1;
+		tab[i].poids = (rand() % 10) + 1;
+		moyenne = tab[i].valeur / tab[i].poids;
+		tab[i].moyenne = moyenne;
+		//tab[i].moyenne = (tab[i].valeur)/(tab[i].poids);
 	}
 
 	//tab[0].poids = 6;
@@ -72,24 +74,27 @@ void tests_glouton()
 	//tab[2].moyenne = 5;
 
 	printf("tableau d'objets:");
-	for(int i=0;i<tailleTabMax;i++){
+	for (int i = 0; i < tailleTabMax; i++)
+	{
 		printf("\nPour %d: TabPoids: %d, TabValeur: %d, TabMoyenne: %.2f", i, tab[i].poids, tab[i].valeur, tab[i].moyenne);
 	}
-	tailleSacRempli =  find_glouton(tab, tailleTabMax, sac, poidsSacMax);
+	tailleSacRempli = find_glouton(tab, tailleTabMax, sac, poidsSacMax);
 
 	printf("\ntableau de sac:");
-	for(int i=0;i<tailleSacRempli;i++){
+	for (int i = 0; i < tailleSacRempli; i++)
+	{
 		printf("\nPour %d: TabPoids: %d, TabValeur: %d", i, sac[i].poids, sac[i].valeur);
 	}
 }
 
-void tests_Conquer(){
+void tests_Conquer()
+{
 
 	int maxTab = 100, tabDivide[maxTab], res = 0;
 	srand(58);
 	for (int i = 0; i < maxTab; i++)
 	{
-		tabDivide[i] = (rand() %999) + 1;
+		tabDivide[i] = (rand() % 999) + 1;
 	}
 	tri_bulle(tabDivide, maxTab);
 
@@ -100,41 +105,51 @@ void tests_Conquer(){
 
 	res = find_by_dichotomy(tabDivide, maxTab, 977);
 	//printf("\nposition: %d\n", res);
-
 }
 
-void tests_pgcb(){
-	int taille_mat = 10;
+void tests_pgcb()
+{
+	int taille_mat = 10, minimum = INT_MAX, pos;
 	bool mat[taille_mat][taille_mat];
 	fill_mat(*mat, taille_mat);
-
+	//mat[i * taille_mat + j]
+	for (int numCol = 0; numCol < taille_mat; numCol++)
+	{
+		for (int numLig = 0; numLig < taille_mat; numLig++)
+		{
+			pos = numCol * taille_mat + numLig;
+			minimum = find_min(minimum, find_carre(pos, *mat, taille_mat,numCol,numLig));
+		}
+	}
+	printf("\nCARRE MIN: %d\n", minimum);
+	printf("\n\nBLBLBLBLBL\n\n");
 }
 
 int test_init()
 {
-    return 0;
+	return 0;
 }
 int test_cleanup()
 {
-    return 0;
+	return 0;
 }
 
 int main()
-{	
+{
 	// CU_initialize_registry();
 
-    // CU_pSuite *tests = CU_add_suite("tests ProgDyn", test_init, test_cleanup);
+	// CU_pSuite *tests = CU_add_suite("tests ProgDyn", test_init, test_cleanup);
 
 	// tests_Conquer();
 	// tests_glouton();
 	tests_pgcb();
 
-    // CU_add_test(tests, "test Divide and Conquer", tests_glouton);
-    // CU_add_test(tests, "test Glouton", tests_Conquer);
-    // CU_add_test(tests, "test A FAIRE", test_AFAIRE);
+	// CU_add_test(tests, "test Divide and Conquer", tests_glouton);
+	// CU_add_test(tests, "test Glouton", tests_Conquer);
+	// CU_add_test(tests, "test A FAIRE", test_AFAIRE);
 
-    // CU_basic_run_tests();
-    // test_cleanup();
+	// CU_basic_run_tests();
+	// test_cleanup();
 
-    return (EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }

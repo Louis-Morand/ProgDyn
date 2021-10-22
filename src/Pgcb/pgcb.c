@@ -21,29 +21,78 @@ int fill_mat(bool *mat, int taille_mat)
     {
         for (int j = 0; j < taille_mat; j++)
         {
-            mat[i*taille_mat+j] = rand() % 2;
+            mat[i * taille_mat + j] = rand() % 2;
         }
     }
-    aff_pgcd(mat, taille_mat);
+    aff_mat(mat, taille_mat);
 
     return 1;
 }
 
-void aff_pgcd(bool *mat, int taille_mat)
+void aff_mat(bool *mat, int taille_mat)
 {
     for (int i = 0; i < taille_mat; i++)
     {
         for (int j = 0; j < taille_mat; j++)
         {
-            if (mat[i*taille_mat+j] == 1)
+            if (mat[i * taille_mat + j] == 1)
             {
                 printf("*|");
             }
-            if (mat[i*taille_mat+j] == 0)
+            if (mat[i * taille_mat + j] == 0)
             {
                 printf(" |");
             }
         }
         printf("\n");
+    }
+}
+
+//REMPLACEE PAR recur
+// void recherche_carre(bool *mat, int taille_mat, bool pixel)
+// {
+
+//     bool res = 0;
+//     int max_tab = taille_mat * taille_mat;
+// }
+
+int find_min(int a, int b)
+{
+    if (a < b)
+    {
+        return a;
+    }
+    else
+        return b;
+}
+
+int find_carre(int pos, bool *tab, int taille_mat, int numCol, int numLig)
+{
+    int tMax = 0, pos1, pos2, pos3;
+    //i*taille_mat+j
+    //PGCB(x-1;y-1)
+    pos1 = numCol - 1 * taille_mat + numLig - 1;
+    //PGCB(x;y-1)
+    pos2 = numCol * taille_mat + numLig - 1;
+    //PGCB(x-1;y)
+    pos3 = numCol - 1 * taille_mat + numLig;
+
+    if (tab[pos] == 1) //pixl noir
+    {
+        return 0;
+    }
+    //pixl blanc, et première ligne en haut àou première colonne à gauche
+    if ((numLig == 0 || numCol == 0) && tab[pos] == 0)
+    {
+        return 1;
+    }
+    else
+    {
+        tMax = 1 + find_min(
+                       find_min(
+                           find_carre(pos1, &tab[pos1], taille_mat, numCol - 1, numLig - 1), //PGCB(x-1;y-1)
+                           find_carre(pos2, &tab[pos2], taille_mat, numCol,  numLig - 1)),    //PGCB(x;y-1
+                       find_carre(pos3, &tab[pos1], taille_mat, numCol - 1, numLig));        //PGCB(x-1;y)
+        return tMax;
     }
 }
