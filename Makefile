@@ -89,3 +89,8 @@ clean:
 run: all
 	./$(OUTPUTMAIN)
 	@echo Executing 'run: all' complete!
+
+.PHONY: documentation
+documentation:
+	@doxygen Doxyfile
+	firefox output/doc/html/index.html

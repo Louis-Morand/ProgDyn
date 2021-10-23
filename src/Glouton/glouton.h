@@ -11,6 +11,11 @@
 #ifndef GLOUTON_H
 #define GLOUTON_H
 
+/**
+ * @brief Structure d'objets, utilisée pour l'algorithme glouton
+ * Contient deux entiers: le poids et la valeur d'un objet, ainsi que le rapport valeur/poids
+ * Une amélioration pourrait etre de prendre en compte les objets avec un prix non entier
+ */
 typedef struct ITEM
 {
     int valeur;

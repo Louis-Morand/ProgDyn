@@ -1,6 +1,6 @@
 /**
  * @file main.c
- * @author your name (you@domain.com)
+ * @author Louis Morand
  * @brief 
  * @version 0.1
  * @date 2021-10-20
@@ -18,33 +18,40 @@
 #include "./DivideAndConquer/divide.h"
 #include "./DivideAndConquer/divide.h"
 
-void tri_bulle(int *tab, int tailletab)
+
+/**
+ * @brief Contient les tests rélisés par la fonction de recherche dans un tableau par divison
+ * Initialise la tableau, la valeur cherchée, et gère l'affichage des résultats.
+ * 
+ */
+void tests_Conquer()
 {
-	int val_inter;
-	int nb_chmgt = 0;
-	do
+
+	int maxTab = 100, tabDivide[maxTab], res = 0, valCherchee = 977;
+	srand(58);
+	for (int i = 0; i < maxTab; i++)
 	{
-		nb_chmgt = 0;
-		for (int i = 0; i < tailletab - 1; i++)
-		{
-			if (tab[i] > tab[i + 1])
-			{
-				val_inter = tab[i];
-				tab[i] = tab[i + 1];
-				tab[i + 1] = val_inter;
-			}
-		}
-		for (int i = 0; i < tailletab - 1; i++)
-		{
-			if (tab[i] > tab[i + 1])
-			{
-				nb_chmgt++;
-				
-			}
-		}
-	} while (nb_chmgt != 0);
+		tabDivide[i] = (rand() % 999) + 1;
+	}
+	tri_bulle(tabDivide, maxTab);
+
+	for (int i = 0; i < maxTab; i++)
+	{
+		printf("\tTab %d: %d", i, tabDivide[i]);
+	}
+
+	res = find_by_dichotomy(tabDivide, maxTab, valCherchee);
+	if(res == -1){
+		printf("Valeur %d non contenue dans le tableau", valCherchee);
+	}
+	printf("\nposition: %d\n", res);
 }
 
+/**
+ * @brief Fonction regroupant les tests réalisés par l'algorithme de recherche glouton
+ * Initialise un tablau de sac, dobjets, définis le nombre d'objets, le poids maximum du sac.
+ * 
+ */
 void tests_glouton()
 {
 	int tailleTabMax = 20, poidsSacMax = 30, tailleSacRempli, moyenne;
@@ -58,21 +65,7 @@ void tests_glouton()
 		tab[i].poids = (rand() % 10) + 1;
 		moyenne = tab[i].valeur / tab[i].poids;
 		tab[i].moyenne = moyenne;
-		//tab[i].moyenne = (tab[i].valeur)/(tab[i].poids);
 	}
-
-	//tab[0].poids = 6;
-	//tab[0].valeur = 7;
-	//tab[0].moyenne = 6.5;
-
-	//tab[1].poids = 5;
-	//tab[1].valeur = 5;
-	//tab[1].moyenne = 5;
-
-	//tab[2].poids = 5;
-	//tab[2].valeur = 5;
-	//tab[2].moyenne = 5;
-
 	printf("tableau d'objets:");
 	for (int i = 0; i < tailleTabMax; i++)
 	{
@@ -87,61 +80,40 @@ void tests_glouton()
 	}
 }
 
-void tests_Conquer()
-{
 
-	int maxTab = 100, tabDivide[maxTab], res = 0;
-	srand(58);
-	for (int i = 0; i < maxTab; i++)
-	{
-		tabDivide[i] = (rand() % 999) + 1;
-	}
-	tri_bulle(tabDivide, maxTab);
-
-	for (int i = 0; i < maxTab; i++)
-	{
-		//printf("\nTab %d: %d", i, tabDivide[i]);
-	}
-
-	res = find_by_dichotomy(tabDivide, maxTab, 977);
-	//printf("\nposition: %d\n", res);
-}
-
-int find_max(int a, int b){
-	if (a > b)
-    {
-        return a;
-    }
-    else
-        return b;
-}
-
-
+/**
+ * @brief Fonction de tests du plus grand carre blanc
+ * Initialise un tableau, le remplis de valeurs aléatoires, puis recherche le carré, affiche sa position, et affiche la matrice en mettant en évidence le carré
+ * 
+ */
 void tests_pgcb()
 {
-	size_t taille_mat = 10;
+	size_t taille_mat = 30;
 	int *mat = malloc(sizeof(int)*taille_mat*taille_mat);
+
 	carre_blanc *carreRet = malloc(sizeof(carre_blanc));
 	carreRet->x = 0;
 	carreRet->y = 0;
 	carreRet->taille = 0;
-	int max = 0, temp;
+
+	int tailleMaxCarre = 0, temp;
 
 	fill_mat(mat, taille_mat);
     aff_mat(mat, taille_mat);
-
 
 	for (int numCol = 0; numCol < taille_mat; numCol++)
 	{
 		for (int numLig = 0; numLig < taille_mat; numLig++)
 		{
 			temp = find_carre(mat, taille_mat, numCol, numLig, carreRet);
-			if(temp> max){
-				max =temp;
+			if(temp> tailleMaxCarre){
+				tailleMaxCarre = temp;
 			}
 		}
 	}
-	printf("\nCARRE MIN: %d, x:%d, y:%d\n", max, carreRet->x, carreRet->y);
+	replacement(mat, taille_mat, tailleMaxCarre, carreRet);
+	aff_mat(mat, taille_mat);
+
 }
 
 int test_init()
@@ -155,20 +127,9 @@ int test_cleanup()
 
 int main()
 {
-	// CU_initialize_registry();
-
-	// CU_pSuite *tests = CU_add_suite("tests ProgDyn", test_init, test_cleanup);
-
-	// tests_Conquer();
-	// tests_glouton();
+	tests_Conquer();
+	tests_glouton();
 	tests_pgcb();
-
-	// CU_add_test(tests, "test Divide and Conquer", tests_glouton);
-	// CU_add_test(tests, "test Glouton", tests_Conquer);
-	// CU_add_test(tests, "test A FAIRE", test_AFAIRE);
-
-	// CU_basic_run_tests();
-	// test_cleanup();
 
 	return (EXIT_SUCCESS);
 }
