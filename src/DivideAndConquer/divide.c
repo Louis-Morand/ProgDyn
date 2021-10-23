@@ -52,7 +52,12 @@ int find_by_dichotomy(int array[], int size_t, int value)
     return ret;
 }
 
-
+/**
+ * @brief Implémantation  du tri par bulle, mis au point dans le tp d'implémentation des tris.
+ * 
+ * @param tab le tableau à trier
+ * @param tailletab la taille maximale du tableau
+ */
 void tri_bulle(int *tab, int tailletab)
 {
 	int val_inter;

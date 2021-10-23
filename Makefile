@@ -93,4 +93,4 @@ run: all
 .PHONY: documentation
 documentation:
 	@doxygen Doxyfile
-	firefox output/doc/html/index.html
+	firefox output/html/index.html

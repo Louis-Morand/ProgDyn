@@ -13,6 +13,7 @@
 #define DIVIDE_H
 
 int find_by_dichotomy(int array[], int size_t, int value);
+
 void tri_bulle(int *tab, int tailletab);
 
 

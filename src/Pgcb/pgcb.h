@@ -15,6 +15,9 @@
 /**
  * @brief Structure permettant de stocker les informations du carré blanc trouvé
  * Contient la position (colonne, ligne) du pixel en bas à droite plus grand carré trouvé, ainsi que sa taille
+ * @param int x La colonne du pixel en bas à droite du plus grand carre
+ * @param int y La ligne du pixel en bas à droite du plus grand carre blanc
+ * @param int taille La taille du carré
  */
 typedef struct CARRE_BLANC
 {
