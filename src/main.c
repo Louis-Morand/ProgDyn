@@ -119,34 +119,15 @@ int find_max(int a, int b){
 
 void tests_pgcb()
 {
-	size_t taille_mat = 3;
+	size_t taille_mat = 10;
 	int *mat = malloc(sizeof(int)*taille_mat*taille_mat);
 	carre_blanc *carreRet = malloc(sizeof(carre_blanc));
 	carreRet->x = 0;
 	carreRet->y = 0;
 	carreRet->taille = 0;
+	int max = 0, temp;
 
-	//fill_mat(*mat, taille_mat);
-
-	mat[0]=1;
-	mat[1]=0;
-	mat[2]=0;
-	//mat[0][3]=0;
-
-	mat[3]=1;
-	mat[4]=0;
-	mat[5]=0;
-	//mat[1][3]=0;
-
-	mat[6]=1;
-	mat[7]=0;
-	mat[8]=0;
-	//mat[2][3]=0;
-
-	// mat[3][0]=1;
-	// mat[3][1]=1;
-	// mat[3][2]=1;
-	// mat[3][3]=1;
+	fill_mat(mat, taille_mat);
     aff_mat(mat, taille_mat);
 
 
@@ -154,10 +135,13 @@ void tests_pgcb()
 	{
 		for (int numLig = 0; numLig < taille_mat; numLig++)
 		{
-			find_carre2(mat, taille_mat, numCol, numLig, carreRet);
+			temp = find_carre(mat, taille_mat, numCol, numLig, carreRet);
+			if(temp> max){
+				max =temp;
+			}
 		}
 	}
-	printf("\nCARRE MIN: %d, x:%d, y:%d\n", carreRet->taille, carreRet->x, carreRet->y);
+	printf("\nCARRE MIN: %d, x:%d, y:%d\n", max, carreRet->x, carreRet->y);
 }
 
 int test_init()
